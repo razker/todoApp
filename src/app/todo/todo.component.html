@@ -1,0 +1,41 @@
+<div class="jumbotron" style="padding: 45px 0px">
+	<h4 class="text-center">To Do App</h4>
+</div>
+
+<div class="input-group">
+	<input type="text" class="from-control" style="width: 100%;" (keyup.enter)="onAdd(itemTitle,itemFilter)"  #itemTitle>
+	<div class="input-group-addon hover-cursor" (click)="onAdd(itemTitle,itemFilter)">
+		<i class="fa fa-plus-circle fa-2x"></i>
+	</div>
+</div>
+
+<ul class="list-group">
+	<li class="list-group-item">
+		<select (change)="filterView(itemFilter)" #itemFilter>
+			<option value="all">All</option>
+			<option value="completed">Completed</option>
+			<option value="active">Active</option>
+		</select>
+	</li>
+	<li class="list-group-item">
+		<input type="checkbox" name="selectAll" value="selectAll" (change)="selectAll(itemSelectAll,itemFilter)" #itemSelectAll> Select All
+		<span class="hover-cursor pull-right" (click)="onSave()">
+			<i class="fa fa-save fa-lg"></i>
+		</span>
+	</li>
+
+</ul>
+
+<div style="margin: 5px 0px">
+	<ul class="list-group">
+		<li class="list-group-item todo-item" *ngFor="let item of toDoListArray" [ngClass]="item.isChecked? 'todo-item-checked':'todo-item-unchecked'">
+			<span class="hover-cursor" [class.text-success]="item.isChecked" (click)="alterCheck(item,item.isChecked,itemFilter)">
+				<i class="fa fa-lg" [ngClass]="item.isChecked? 'fa-check-circle-o':'fa-circle-thin'"></i>
+			</span>
+			{{item.title}}
+			<span class="hover-cursor text-danger pull-right" (click)="onDelete(item,itemFilter)">
+				<i class="fa fa-trash-o fa-lg"></i>
+			</span>
+		</li>
+	</ul>
+</div>
